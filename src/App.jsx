@@ -1,73 +1,261 @@
 import './App.css'
+import Header from './components/Header';
+import About from './components/About';
+import ProjectList from './components/ProjectList';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import ProfileCard from './components/ProfileCard';
+import { useState } from 'react';
 
 function App() {
-  const name = "Akash Varma";
-  const profession = "Full stack Developer";
-  const projects = [
-    {
-      title : "Project One",
-      description : "A web application built using React and Node.js",
-      link : "#"
-    },
-    {
-      title : "Project Two",
-      description : "An eCommerce platform using Springboot",
-      link : "#"
-    }
-  ]
+
+  // const person = {name: 'Akash', age : 30};
+  // const{name,age} = person;
+  // const hobby1 = ['Reading', 'Cooking'];
+  // const handleHobbyClick = (hobby) => {
+  //   alert(`You clicked on: ${hobby}`);
+  // };
+
+  // const akashProfile = {
+  //   name:"Akash",
+  //   age : 23,
+  //   isMember : false,
+  //   hobbies : ['Reading', 'Cooking'],
+  //   onHobbyClick : handleHobbyClick
+  // };
+
+  //  const kowshikProfile = {
+  //   name : "kowshik",
+  //   age : 23,
+  //   isMember : true,
+  //   hobbies : ['Reading', 'Cooking'],
+  //   onHobbyClick : handleHobbyClick
+  // };
+
+  //  const pp = {
+  //   name : "PP",
+  //   age : 23,
+  //   isMember : true,
+  //   hobbies : ['Reading', 'Cooking'],
+  //   onHobbyClick : handleHobbyClick
+  // };
+
+  //usestate lecture
+
+
+  // const [count, setCount] = useState(0);
+  // const [step, setStep] = useState(1);
+
+  // const increment = () => {
+  //    setCount(count+step);
+  // };
+
+  // const decrement = () => {
+  //   setCount(count-step);
+  // }
+
+
+
+  //Adding multiple projects lecture
+
+
+
+  // const [counters, setCounters] = useState([{id:1, value:0}]);
+
+  // const addCounters = () => {
+  //   setCounters([...counters, {id: counters.length +1, value : 0}])
+  // };
+
+  // const incrementCount = (id) => {
+  //    setCounters(counters.map(counter => 
+  //     counter.id === id ? {...counter, value: counter.value + 1} : counter
+  //    ));
+  // };
+
+
+
+  //REACT FORM BASED PROJECT
+
+  const [formData, setFormData] = useState({
+    text: "",
+    checkbox : false,
+    radio : '',
+    select : ''
+  });
+
+  const handleChange = (e) => {
+    
+    const {name, value, type, checked} = e.target
+    setFormData({
+      ...formData,
+      [name] : type === 'checkbox' ? checked : value
+    })
+    
+
+  };
+
 
   return (
-    <div className='App'>
-      {/*This is a header section*/}
-      <header className='header'>
-        <h1>{name}</h1>
-        <p>{profession}</p>
-        <nav>
-          <a href='#about'>About</a>
-          <a href='#projects'>Projects</a>
-          <a href='#contact'>Contact</a>
-        </nav>
-      </header>
 
-    {/* About Section  */}
 
-    <section id='about' className='about-section'>
-      <h2>About Me</h2>
-      <p>Hello! I am {name}, a passinate {profession}. I love building web application that solves a really life problems</p>
+// React portfolio project
 
-    </section>
+    // <div className='App'>
 
-    {/* Projects section */}
+    //   <Header/>
+    //   <About/>
+    //   <ProjectList/>
+    //   <Contact/>
+    //   <Footer/>
 
-    <section id='projects' className='projects-section'>
-      <h2>Projects</h2>
-      <div className="projects-list">
-        {projects.map((project, index) => (
+    // </div>
 
-          <div key = {index} className="project-item">
-            <h3>{project.title}</h3>
-            <h3>{project.description}</h3>
-            <a href={project.link} target = '_blank'  rel="noopener noreferrer">View Project</a>
-          </div>
-        ))}
+// PROPS PRACTICE
+
+    // <div className='app-container'>
+    //   <h1 className="app-container">Hello</h1>
+    //   <ProfileCard {...akashProfile}/>
+    //   <ProfileCard {...kowshikProfile}/>
+    //   <ProfileCard {...pp}/>
+    // </div>
+
+
+    //states, Use state
+
+//     <div className='app-container'>
+//       <h1>counter {count}</h1>
+//       <input
+//         type="number"
+//         value={step}
+//         onChange={(e) => setStep(parseInt(e.target.value))}
+// />
+//       <button onClick={increment}>Increment</button>
+//       <button onClick={decrement}>Decrement</button>
+//     </div>
+
+
+    //  ADDING MULTIPLE COUNTERS PROJECT
+
+    // <div>
+
+    //  <button onClick={addCounters}>Add Counter</button>
+    //  <ul>
+
+    //  </ul>
+    //  {counters.map(counter=> (
+    //   <li key={counter.id}>
+
+    //       Counter {counter.id}: {counter.value}
+    //       <button onClick={() => {incrementCount(counter.id)}}>Increment</button>
+
+
+    //   </li>
+    //  ))}
+
+
+    // </div>
+
+
+   //REACT FORM BASED PROJECT
+
+
+   <div className='form-container'>
+    <h1>Form Example</h1>
+    <form>
+      
+      {/* text input */}
+      <div className='form-field'>
+         <label>Text: </label>
+         <input type='text' name='text' 
+           value={formData.text} 
+           onChange={handleChange} ></input>
+      </div>
+      {/* text input */}
+
+      {/* checkbox */}
+
+      <div className='form-field'>
+         <label>
+          <input type='checkbox' name='checkbox'
+            checked={formData.checkbox} 
+            onChange={handleChange}>
+          </input> Checkbox
+         </label>
+      </div>
+      {/* checkbox */}
+
+
+      {/* Radio Button */}
+
+      <div className='form-field'>
+         <label>Radio:</label>
+         <label>
+         <input type='radio' name='radio' value='option1 'checked={formData.radio === 'option1'} onChange={handleChange}></input>
+           Option 1 </label>
+
+         <label>
+         <input type='radio' name='radio' value='option2 'checked={formData.radio === 'option2'} onChange={handleChange}></input>
+           Option 2 </label>
       </div>
 
-    </section>
 
-    {/* Contact section */}
-    <section id = 'contact'  className="contact-section">
 
-       <h2>Contact Me</h2>
-       <p>If you like to get in touh, feel free to email me at <a href="mailto:akashvarma.k@gmail.com">akashvarma.k@gmail.com</a></p>
-    </section>
+      {/* Radio Button */}
 
-    {/* Footer Section */}
 
-    <footer className="footer">
-      <p>2025. All Rights Reserved</p>
-    </footer>
+      {/* Dropdown */}
 
-    </div>
+       <div className='form-field'>
+         <label>Select: </label>
+         <select name='select' value={formData.select} onChange={handleChange}>
+         <option value="">choose an option</option>
+         <option value="option1">choose an option 1</option>
+         <option value="option2">choose an option 2</option>
+         </select>
+      </div>
+
+      {/* Dropdown */}
+
+     <div className='form-data'>
+        <h3>Form Data</h3>
+        <p><strong>Text:</strong>{formData.text || 'N/A'}</p>
+        <p><strong>Checkbox:</strong>{formData.checkbox ? 'checked' : 'unchecked'}</p>
+        <p><strong>Radio:</strong>{formData.radio || 'N/A'}</p>
+        <p><strong>Select:</strong>{formData.select || 'N/A'}</p>
+
+
+
+     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </form>
+
+     
+    
+   </div>
+
+
+
+
+
+
+
+    
+
+
   )
 }
 
