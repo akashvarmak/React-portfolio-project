@@ -75,7 +75,9 @@ a:hover {
 } 
   */
 
-.form-container {
+  /* css for form based project - 1 */
+
+/* .form-container {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
@@ -134,5 +136,79 @@ input[type="text"], select{
 
  strong {
   color: #333;
- }
+ } */
 
+  /* css for form based project - 1 end*/
+
+
+
+/* css for color code project 2 */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.color-box {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border: 2px solid;
+}
+
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  padding: 0px;
+  padding-top: 40px;
+  min-height: 100vh;
+  color: #f0f0f0;
+
+}
+
+h1 {
+  color: #f0f0f0
+}
+
+.color-palette {
+
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+
+
+}
+
+.custom-color-picker {
+  margin-top: 20px;
+  
+}
+
+.custom-color-picker input {
+
+ cursor: pointer;
+ border: none;
+ padding: 10px;
+ border-radius: 5px;
+ color: #fff;
+
+}
+
+.custom-color-picker input:hover{
+
+  background-color: #555;
+  
+
+}
+
+
+
+
+
+
+
+
+
+
+/* css for color code project 2 */
