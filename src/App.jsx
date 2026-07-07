@@ -1,18 +1,37 @@
+import { useState, useEffect } from 'react';
 import './App.css'
-import { useEffect, useState } from 'react';
-import ParentComponent from './assets/ParentComponent';
 
 function App() {
+
+  const[time, setTime] = useState(new Date());
+
+  useEffect( () => {
+
+    const timerId = setInterval( () => setTime(new Date(), 1000));
+    console.log(new Date());
+    return () => clearInterval(timerId);
+    
+  }, []);
+
+  const formattedTime = time.toLocaleTimeString('en-US',
+    {
+      hour: '2-digit', 
+      minute: '2-digit',
+      second: '2-digit'
+
+    }  
+  );
   
-
-
   return (
 
-    <div>
-     <ParentComponent/>
+    <div className='clock-container'>
+
+       <div className='clock'>
+       {formattedTime}
+       </div>
+
     </div>
 
   )
 }
-
 export default App
