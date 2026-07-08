@@ -1,37 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './App.css'
+
+//useRef
+// persist values across renders
+// does not cause the components to re-render when the value changes
+
+//current is the variable inside the object of useRef, gpt this
 
 function App() {
 
-  const[time, setTime] = useState(new Date());
+  const[stateCount, setStateCount] = useState(0);
+  const refCount = useRef(0);
 
   useEffect( () => {
+    console.log('component Re-rendered');
+  })
 
-    const timerId = setInterval( () => setTime(new Date(), 1000));
-    console.log(new Date());
-    return () => clearInterval(timerId);
-    
-  }, []);
+  const incrementStateCount = () => {
+    setStateCount(stateCount + 1);
+  }
 
-  const formattedTime = time.toLocaleTimeString('en-US',
-    {
-      hour: '2-digit', 
-      minute: '2-digit',
-      second: '2-digit'
+  const incrementRefCount = () => {
+    refCount.current += 1;
+    console.log(`Ref count : ${refCount.current}`);
+  }
 
-    }  
-  );
-  
+
+
+
   return (
+ 
+    <div>
+      <p>State Count: {stateCount}</p>
+      <button onClick={incrementStateCount}>Increment</button>
 
-    <div className='clock-container'>
-
-       <div className='clock'>
-       {formattedTime}
-       </div>
-
+      <p>State Count: {refCount.current}</p>
+      <button onClick={incrementRefCount}>Increment</button>
     </div>
 
+
+
   )
+
+  
 }
 export default App
