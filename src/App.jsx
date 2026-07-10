@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import Navigation from './assets/Components/navigation'
 import './App.css'
 
 //useRef
@@ -9,36 +9,18 @@ import './App.css'
 
 function App() {
 
-  const[stateCount, setStateCount] = useState(0);
-  const refCount = useRef(0);
-
-  useEffect( () => {
-    console.log('component Re-rendered');
-  })
-
-  const incrementStateCount = () => {
-    setStateCount(stateCount + 1);
-  }
-
-  const incrementRefCount = () => {
-    refCount.current += 1;
-    console.log(`Ref count : ${refCount.current}`);
-  }
-
 
 
 
   return (
- 
+
     <div>
-      <p>State Count: {stateCount}</p>
-      <button onClick={incrementStateCount}>Increment</button>
+      
+      <Navigation />
 
-      <p>State Count: {refCount.current}</p>
-      <button onClick={incrementRefCount}>Increment</button>
+
+
     </div>
-
-
 
   )
 
