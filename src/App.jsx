@@ -1,54 +1,66 @@
-import { useRef } from 'react';
+import { createContext, useContext, useRef } from 'react';
 import './App.css'
 
-//useRef
-// persist values across renders
-// does not cause the components to re-render when the value changes
+//useContext()
 
-//current is the variable inside the object of useRef, gpt this
+//create a constant
+//const MyContext = createContext(defaultValue);
+
+//consume a context:
+//const contextValue = useContext(MyContext);
+
+ const ThemeContext = createContext('light');
+
 
 function App() {
-  const inputRef = useRef(null);
-  const inputRefNext = useRef(null);
 
-  const focusInput = () => {
-    inputRef.current.focus();
-    inputRef.current.style.backgroundColor = 'yellow';
-
-  }
-
-  const focusInputNext = () => {
-    inputRefNext.current.focus();
-    inputRefNext.current.style.backgroundColor = 'yellow';
-
-  }
-
-   const resetFocus = () => {
-    inputRefNext.current.style.backgroundColor = 'white';
-    inputRef.current.style.backgroundColor = 'white';
-
-
-  }
-
-
+  const theme = 'dark';
   return (
+    <div style={{border:'2px solid black', padding: '20px' }}>
+    <h2>App (parent)</h2>
+    <ComponentA/>
 
-    <div>
-      <h1>Learn React</h1>
-      <input type='text' ref={inputRef} plaveholder='Focus me'></input>
-      <button onClick={focusInput}>Focus and Highlight</button>
-
-      <input type='text' ref={inputRefNext} plaveholder='Focus me'></input>
-      <button onClick={focusInputNext}>Focus and Highlight</button>
-
-      <button onClick={resetFocus}>reset</button>
-
-
-      
     </div>
 
-  )
+  );
 
   
 }
+
+
+function ComponentA() {
+  return (
+    <div style={{border:'2px solid black', padding: '20px' }}>
+    <h2>ComponentA (child)</h2>
+    <ComponentB />
+
+    </div>
+
+  );
+}
+
+function ComponentB() {
+   return (
+    <div style={{border:'2px solid black', padding: '20px' }}>
+    <h2>ComponentB (Grand-child)</h2>
+    <ThemedComponent/>
+
+    </div>
+
+  );
+}
+
+function ThemedComponent() {
+  const theme = useContext(ThemeContext);
+   return (
+    <div style={{border:'2px solid black', padding: '20px' }}>
+    <h2>ThemedComponent (Great-Grand-child)</h2>
+    <div>The current theme is: {theme}</div>
+
+    </div>
+
+  );
+  
+}
+
 export default App
