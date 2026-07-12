@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef } from 'react';
+import { createContext, useContext, useRef, useState } from 'react';
 import './App.css'
 
 //useContext()
@@ -17,16 +17,31 @@ import './App.css'
 
 
 function App() {
+  const [theme, setTheme] = useState('light');
 
-  const theme = 'dark';
+  const toggleTheme = () => {
+      setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
   return (
-    <ThemeContext.Provider value={'dark'}>
+    <div>
+      //defualt outside provider
+     <GlobalComponent/>
+
+    //Hirarchy of internal components change
+    <ThemeContext.Provider value={theme}>
     <div style={{border:'2px solid black', padding: '20px' }}>
     <h2>App (parent)</h2>
+    <button onClick={toggleTheme}>Toggle Theme</button>
     <ComponentA/>
-
     </div>
     </ThemeContext.Provider>
+
+    // provider with our custom value
+    <ThemeContext.Provider value='dark'>
+      <GlobalComponent/>
+    </ThemeContext.Provider>
+
+    </div>
 
   );
 
@@ -61,6 +76,20 @@ function ThemedComponent() {
    return (
     <div style={{border:'2px solid black', padding: '20px' }}>
     <h2>ThemedComponent (Great-Grand-child)</h2>
+    <div>The current theme is: {theme}</div>
+
+    </div>
+
+  );
+  
+}
+
+
+function GlobalComponent() {
+  const theme = useContext(ThemeContext);
+   return (
+    <div style={{border:'2px solid purple', padding: '20px' }}>
+    <h2>GlobalComponent (outside provider)</h2>
     <div>The current theme is: {theme}</div>
 
     </div>
