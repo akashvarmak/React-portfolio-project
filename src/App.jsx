@@ -9,6 +9,10 @@ import './App.css'
 //consume a context:
 //const contextValue = useContext(MyContext);
 
+// <MyContext.Provider value={somevalue}>
+//       <ComponentA/>
+//   </MyContext.provider>
+
  const ThemeContext = createContext('light');
 
 
@@ -16,11 +20,13 @@ function App() {
 
   const theme = 'dark';
   return (
+    <ThemeContext.Provider value={'dark'}>
     <div style={{border:'2px solid black', padding: '20px' }}>
     <h2>App (parent)</h2>
     <ComponentA/>
 
     </div>
+    </ThemeContext.Provider>
 
   );
 
