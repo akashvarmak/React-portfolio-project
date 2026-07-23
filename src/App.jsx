@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './App.css'
 import axios from 'axios'
 
+axios.interceptors.request.use(request => {
+ console.log('Starting Request');
+ return request;
+});
 
 function App() {
   const[data, setData] = useState();
@@ -19,7 +23,7 @@ function App() {
     })
 
   };
-  
+
   return (
 
     <div>
