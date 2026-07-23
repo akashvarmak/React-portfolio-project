@@ -4,62 +4,33 @@ import axios from 'axios'
 
 
 function App() {
+  const[data, setData] = useState();
+  const handleSubmit = (event) =>{
+    event.preventDefault();
+    const newPost = {title : 'foo',
+      body: 'bar',
+      userId: 1
+    }
 
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
- 
-  useEffect( () => {
-    setLoading(true);
-    axios.all([
-    axios.get('https://jsonplaceholder.typicode.com/posts'),
-    axios.get('https://jsonplaceholder.typicode.com/users') 
-    ])
-      // .then(response => response.json())
-      .then(axios.spread((posts, users) => {
-        console.log(posts);
-        console.log(users);
-        setData(posts.data);
-        setLoading(false);
-        //  throw new Error('Something went wrong');
-      }))
-      .catch((error) => {
-        //console.error gives us in red
-        console.error(`Error fetching data: `, error);
-        setError(`Failed to fetch the data`);
-        setLoading(false);
-      });
-  }, []);
+    axios.post('https://jsonplaceholder.typicode.com/posts', newPost)
+    .then(response => {
+      console.log('New Post Added: ', response.data);
+      setData([response.data]);
+    })
 
-  if(loading) {
-    return <p>Loading...</p>
-  }
-
-  if(error) {
-    return <p>{error}</p>
-  }
+  };
   
   return (
 
     <div>
-
-       <h2>API's</h2>
-       <ul>
-        {data.map((post) => (
-          <li key={post.id}>
-            <p><strong>{post.title}</strong></p>
-            <p>{post.body}</p>
-
-
-          </li>
-          ))}
-       </ul>
-       
-
-     
+      <h1>API's in React</h1>
+      <form onSubmit={handleSubmit}>
+        <button type='submit'>Add Post</button>
+      </form>
 
 
     </div>
+    
   );  
 }
 
