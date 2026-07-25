@@ -2,10 +2,25 @@ import React, { useEffect, useState } from 'react';
 import './App.css'
 import axios from 'axios'
 
-axios.interceptors.request.use(request => {
- console.log('Starting Request');
- return request;
+const api = axios.create({
+    baseURL: 'https://jsonplaceholder.typicode.com',
+    headers: {
+      'Authorization' : 'Bearer <TOKEN>',
+      'Content-Type' : 'application/json'
+    }
 });
+
+api.interceptors.request.use(request => {
+    console.log("Starting request ", request);
+    return request;
+});
+
+
+
+// axios.interceptors.request.use(request => {
+//  console.log('Starting Request');
+//  return request;
+// });
 
 function App() {
   const[data, setData] = useState();
@@ -16,7 +31,7 @@ function App() {
       userId: 1
     }
 
-    axios.post('https://jsonplaceholder.typicode.com/posts', newPost)
+    api.post('/posts', newPost)
     .then(response => {
       console.log('New Post Added: ', response.data);
       setData([response.data]);
