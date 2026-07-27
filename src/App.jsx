@@ -1,51 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import './App.css'
-import axios from 'axios'
-
-const api = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com',
-    headers: {
-      'Authorization' : 'Bearer <TOKEN>',
-      'Content-Type' : 'application/json'
-    }
-});
-
-api.interceptors.request.use(request => {
-    console.log("Starting request ", request);
-    return request;
-});
-
-
-
-// axios.interceptors.request.use(request => {
-//  console.log('Starting Request');
-//  return request;
-// });
+import { useState } from "react";
 
 function App() {
-  const[data, setData] = useState();
-  const handleSubmit = (event) =>{
-    event.preventDefault();
-    const newPost = {title : 'foo',
-      body: 'bar',
-      userId: 1
-    }
+  const [formData, setFormData] = useState({name:'', email: ''});
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form Data Submitted ', formData);
+  };
 
-    api.post('/posts', newPost)
-    .then(response => {
-      console.log('New Post Added: ', response.data);
-      setData([response.data]);
-    })
-
+  const handleChange = (e) => {
+    // console.log(formData.name);
+    setFormData({...formData, [e.target.name]:e.target.value})
   };
 
   return (
 
     <div>
-      <h1>API's in React</h1>
+      <h1>Forms in React</h1>
       <form onSubmit={handleSubmit}>
-        <button type='submit'>Add Post</button>
+         <label>
+           Name: 
+           <input
+             type='text'
+             name = 'name'
+             value = {formData.name}
+             onChange={handleChange}>
+             </input>    
+         </label>
+
+         <label>
+           Email: 
+           <input
+             type='email'
+             name = 'email'
+             value = {formData.email}
+             onChange={handleChange}>
+             </input>    
+         </label>
+         <button type='submit'>Submit</button> 
       </form>
+      
 
 
     </div>
