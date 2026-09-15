@@ -1,68 +1,36 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 function App() {
-  const [formData, setFormData] = useState({name:'', email: ''});
+  const{register, handleSubmit, watch} = useForm();
+  const onSubmit = (data) => console.log(data);
 
-  const [errors, setErrors] = useState({});
+  const watchedName = watch('name');
+  const watchEmail = watch('email');
 
-  const validate = () => {
-    const newErrors = {};
-    if(!formData.name.trim()){
-      newErrors.name = 'Name is required';
-    }
-    return newErrors;
-  }
+  useEffect( () => {
+    console.log('Name : ', watchedName);
+  }, [watchedName]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    if(Object.keys(validationErrors).length > 0){
-      setErrors(validationErrors)
-    }else{
-    console.log('Form Data Submitted ', formData);
-    }
-  };
+  useEffect( () => {
+    console.log('Email : ', watchEmail);
+  }, [watchEmail]);
 
-
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    // console.log(formData.name);
-    setFormData({...formData, 
-      [e.target.name]:e.target.value});
-  
-
-   if(errors[name]){
-    const newErrors = {...errors};
-    delete newErrors[name];
-    setErrors(newErrors);
-   }
-  }
 
   return (
 
     <div>
       <h1>Forms in React</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
          <label>
-           Name: 
-           <input
-             type='text'
-             name = 'name'
-             value = {formData.name}
-             onChange={handleChange}>
-             </input>
-             {errors.name && <span style={{color: 'red'}}>{errors.name}</span>}
-             <br/>    
+           Name:  
+           <input {...register('name')} />
          </label>
 
          <label>
            Email: 
-           <input
-             type='email'
-             name = 'email'
-             value = {formData.email}
-             onChange={handleChange}>
-             </input>    
+          <input {...register('email')} />  
          </label>
          <button type='submit'>Submit</button> 
       </form>
