@@ -3,8 +3,12 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 
 function App() {
-  const{register, handleSubmit, formState: {errors}} = useForm();
-  const onSubmit = (data) => console.log(data);
+  const{register, handleSubmit, reset, formState: {errors}} = useForm();
+  const onSubmit = (data) => { 
+    console.log(data);
+    reset();
+
+  }
 
 
   return (
@@ -25,6 +29,7 @@ function App() {
          </label>
          {errors.email && <p>Email is required</p>}
          <button type='submit'>Submit</button> 
+         <button type="button" onClick={() => reset()}>Reset</button>
       </form>
       
 
