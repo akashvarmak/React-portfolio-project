@@ -10,6 +10,13 @@ function App() {
 
   }
 
+  // const validateName = (value) => {
+  //   if(value !== 'admin'){
+  //     return 'Only admin is allowed'
+  //   }
+  //   return true;
+  // }
+
 
   return (
 
@@ -19,9 +26,13 @@ function App() {
          <label>
            Name:  
            {/* <input {...register('name', { required: true, minLength:2 })} /> */}
-           <input {...register('name', { required: 'Name is required', minLength: {value: 2, message: 'Name is atleast 2 characters'} })} />
+           <input {...register('name', { required: 'Name is required', minLength: 2, validate : {
+                     notAdmin: (value) => value !== "admin" || "Admin is not allowed",
+                     isNotNumber: (value) => isNaN(value) || "Name cannot be number"
+           }})} />
          </label>
-         {errors.name && <p>Name is required and length have to be true</p>}
+         {/* {errors.name && <p>Name is required</p>} */}
+         {errors.name && <p>{errors.name.message}</p>}
 
          <label>
            Email: 
